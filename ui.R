@@ -16,7 +16,7 @@ darzeliai <- readRDS("darzeliai.RDS") %>% sort
 shinyUI(fluidPage(
   
   tags$link(rel = "stylesheet", type = "text/css", href = "maps.css"),
-  tags$script(src = "addMap.js"),
+  tags$script(src = "googleMapAPI.js"),
   tags$script("
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

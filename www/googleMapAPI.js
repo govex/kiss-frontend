@@ -2,11 +2,11 @@ function initMap() {
         var mapArray = [
           { id:'home-map', 
             input: 'home-input',
-            position:{lat: 54.693, lng: 25.275}
+            position:{lat: 54.6868974, lng: 25.2814145}
           },
           { id:'work-map', 
             input: 'work-input',
-            position:{lat: 54.693, lng: 25.275}
+            position:{lat: 54.6780767, lng: 25.286947699999}
           }
         ]
         
@@ -38,9 +38,33 @@ function initMap() {
               searchBox.setBounds(map.getBounds());
           });
           
+          var homeAddress = new google.maps.LatLng(
+                                      mapArray[0].position.lat, 
+                                      mapArray[0].position.lng);
+          var workAddress = new google.maps.LatLng(
+                                      mapArray[1].position.lat, 
+                                      mapArray[1].position.lng);
+          
+          var service = new google.maps.DistanceMatrixService();
+          service.getDistanceMatrix(
+            {
+              origins: [homeAddress],
+              destinations: [workAddress],
+              travelMode: 'DRIVING'
+            }, callback);
+            
+          function callback(response, status) {
+            console.log(
+              response.rows[0].elements[0].distance.text, 
+              response.rows[0].elements[0].distance.value,
+              response.rows[0].elements[0].duration.text, 
+              response.rows[0].elements[0].duration.value
+            );
+          }
+          
           var markers = [];
-        // Listen for the event fired when the user selects a prediction and retrieve
-        // more details for that place.
+        // Listen for the event fired when the user selects a prediction and 
+        // retrieve more details for that place.
         searchBox.addListener('places_changed', function() {
           var places = searchBox.getPlaces();
 
@@ -95,8 +119,7 @@ function initMap() {
           });
           map.fitBounds(bounds);
         });
-          
-          
+
           
         })//mapArray.forEach
-      }
+      }//initMap()
