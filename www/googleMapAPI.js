@@ -38,30 +38,6 @@ function initMap() {
               searchBox.setBounds(map.getBounds());
           });
           
-          var homeAddress = new google.maps.LatLng(
-                                      mapArray[0].position.lat, 
-                                      mapArray[0].position.lng);
-          var workAddress = new google.maps.LatLng(
-                                      mapArray[1].position.lat, 
-                                      mapArray[1].position.lng);
-          
-          var service = new google.maps.DistanceMatrixService();
-          service.getDistanceMatrix(
-            {
-              origins: [homeAddress],
-              destinations: [workAddress],
-              travelMode: 'DRIVING'
-            }, callback);
-            
-          function callback(response, status) {
-            console.log(
-              response.rows[0].elements[0].distance.text, 
-              response.rows[0].elements[0].distance.value,
-              response.rows[0].elements[0].duration.text, 
-              response.rows[0].elements[0].duration.value
-            );
-          }
-          
           var markers = [];
         // Listen for the event fired when the user selects a prediction and 
         // retrieve more details for that place.
@@ -119,6 +95,32 @@ function initMap() {
           });
           map.fitBounds(bounds);
         });
+
+
+          //distance 
+          var homeAddress = new google.maps.LatLng(
+                                      mapArray[0].position.lat, 
+                                      mapArray[0].position.lng);
+          var workAddress = new google.maps.LatLng(
+                                      mapArray[1].position.lat, 
+                                      mapArray[1].position.lng);
+          
+          var service = new google.maps.DistanceMatrixService();
+          service.getDistanceMatrix(
+            {
+              origins: [homeAddress],
+              destinations: [workAddress],
+              travelMode: 'DRIVING'
+            }, callback);
+            
+          function callback(response, status) {
+            console.log(
+              response.rows[0].elements[0].distance.text, 
+              response.rows[0].elements[0].distance.value,
+              response.rows[0].elements[0].duration.text, 
+              response.rows[0].elements[0].duration.value
+            );
+          }
 
           
         })//mapArray.forEach
